@@ -2,7 +2,6 @@ package com.ifs21034.delcomtodo.presentation.register
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.ifs21034.delcomtodo.R
 import android.content.Intent
 import android.view.View
 import androidx.activity.viewModels

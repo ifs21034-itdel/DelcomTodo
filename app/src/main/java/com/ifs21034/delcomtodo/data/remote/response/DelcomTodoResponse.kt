@@ -17,10 +17,10 @@ data class DelcomTodoResponse(
 data class DataTodoResponse(
 
 	@field:SerializedName("todo")
-	val todo: Todo
+	val todo: TodoResponse
 )
 
-data class Todo(
+data class TodoResponse(
 
 	@field:SerializedName("cover")
 	val cover: String,

@@ -14,7 +14,7 @@ class LoginViewModel(
 ) : ViewModel() {
 
     fun login(email: String, password: String):
-            LiveData<MyResult<DataLoginResponse>> {
+            LiveData<   MyResult<DataLoginResponse>> {
         return authRepository.login(email, password).asLiveData()
     }
 

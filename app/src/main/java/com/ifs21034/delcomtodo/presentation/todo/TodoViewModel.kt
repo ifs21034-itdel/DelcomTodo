@@ -1,35 +1,31 @@
-package com.ifs21034.delcomtodo.presentation.main
+package com.ifs21034.delcomtodo.presentation.todo
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
-import com.ifs21034.delcomtodo.data.pref.UserModel
 import com.ifs21034.delcomtodo.data.remote.MyResult
+import com.ifs21034.delcomtodo.data.remote.response.DataAddTodoResponse
 import com.ifs21034.delcomtodo.data.remote.response.DelcomResponse
-import com.ifs21034.delcomtodo.data.remote.response.DelcomTodosResponse
-import com.ifs21034.delcomtodo.data.repository.AuthRepository
+import com.ifs21034.delcomtodo.data.remote.response.DelcomTodoResponse
 import com.ifs21034.delcomtodo.data.repository.TodoRepository
 import com.ifs21034.delcomtodo.presentation.ViewModelFactory
-import kotlinx.coroutines.launch
 
-class MainViewModel(
-    private val authRepository: AuthRepository,
+class TodoViewModel(
     private val todoRepository: TodoRepository
 ) : ViewModel() {
 
-    fun getSession(): LiveData<UserModel> {
-        return authRepository.getSession().asLiveData()
+    fun getTodo(todoId: Int): LiveData<MyResult<DelcomTodoResponse>>{
+        return todoRepository.getTodo(todoId).asLiveData()
     }
 
-    fun logout() {
-        viewModelScope.launch {
-            authRepository.logout()
-        }
-    }
-
-    fun getTodos(): LiveData<MyResult<DelcomTodosResponse>> {
-        return todoRepository.getTodos(null).asLiveData()
+    fun postTodo(
+        title: String,
+        description: String,
+    ): LiveData<MyResult<DataAddTodoResponse>>{
+        return todoRepository.postTodo(
+            title,
+            description
+        ).asLiveData()
     }
 
     fun putTodo(
@@ -46,20 +42,22 @@ class MainViewModel(
         ).asLiveData()
     }
 
+    fun deleteTodo(todoId: Int): LiveData<MyResult<DelcomResponse>> {
+        return todoRepository.deleteTodo(todoId).asLiveData()
+    }
+
     companion object {
         @Volatile
-        private var INSTANCE: MainViewModel? = null
+        private var INSTANCE: TodoViewModel? = null
         fun getInstance(
-            authRepository: AuthRepository,
             todoRepository: TodoRepository
-        ): MainViewModel {
+        ): TodoViewModel {
             synchronized(ViewModelFactory::class.java) {
-                INSTANCE = MainViewModel(
-                    authRepository,
+                INSTANCE = TodoViewModel(
                     todoRepository
                 )
             }
-            return INSTANCE as MainViewModel
+            return INSTANCE as TodoViewModel
         }
     }
 }

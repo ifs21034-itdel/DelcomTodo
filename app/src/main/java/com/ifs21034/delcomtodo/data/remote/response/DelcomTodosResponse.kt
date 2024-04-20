@@ -41,5 +41,5 @@ data class TodosItemResponse(
 	val title: String,
 
 	@field:SerializedName("is_finished")
-	val isFinished: Int
+	var isFinished: Int
 )
