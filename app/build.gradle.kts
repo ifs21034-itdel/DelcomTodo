@@ -16,7 +16,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "BASE_URL", "\"https://public-api.delcom.org/v1/\"")
+        buildConfigField("String", "BASE_URL", "\"https://public-api.delcom.org/api/v1/\"")
     }
 
     buildTypes {
@@ -34,6 +34,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
+    }
+    buildFeatures{
+        viewBinding = true
+        buildConfig = true
     }
 }
 
